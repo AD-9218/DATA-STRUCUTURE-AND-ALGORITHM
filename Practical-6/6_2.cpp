@@ -1,14 +1,14 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 int main() {
-    vector<string> stack;
+    string stack[100];
     string page;
+    int top = -1;
     int q;
 
     cin >> page;
-    stack.push_back(page);
+    stack[++top] = page;
 
     cin >> q;
 
@@ -18,15 +18,16 @@ int main() {
 
         if (op == "push") {
             cin >> page;
-            stack.push_back(page);
-            cout << "Current Page: " << stack.back() << endl;
+            stack[++top] = page;
+            cout << "Current Page: " << stack[top] << endl;
         }
         else if (op == "pop") {
-            if (stack.size() == 1) {
+            if (top == 0) {
                 cout << "No History" << endl;
-            } else {
-                stack.pop_back();
-                cout << "Current Page: " << stack.back() << endl;
+            }
+            else {
+                top--;
+                cout << "Current Page: " << stack[top] << endl;
             }
         }
     }
