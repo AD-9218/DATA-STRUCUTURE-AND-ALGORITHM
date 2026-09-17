@@ -2,35 +2,39 @@
 using namespace std;
 
 int main() {
-    int q[100];
-    int f = 0;
-    int r = 0;
-    int op;
+    int n, q;
+    cin >> n >> q;
 
-    cin >> op;
+    int a[n], f = 0, r = -1, c = 0;
 
-    while (op--) {
-        string type;
-        cin >> type;
+    while (q--) {
+        string s;
+        int x;
+        cin >> s;
 
-        if (type == "arrive") {
-            int x;
+        if (s == "join") {
             cin >> x;
-
-            q[r++] = x;
-            cout << "Front: " << q[f] << endl;
-        }
-        else if (type == "attend") {
-            if (f == r) {
-                cout << "Queue Underflow" << endl;
-            }
+            if (c == n)
+                cout << "Error: Queue Full\n";
             else {
-                f++;
-
-                if (f == r)
-                    cout << "Queue is Empty" << endl;
-                else
-                    cout << "Front: " << q[f] << endl;
+                r = (r + 1) % n;
+                a[r] = x;
+                c++;
+                cout << "Front: " << a[f] << "\n";
+            }
+        } 
+        else if (s == "serve") {
+            if (c == 0)
+                cout << "Error: Queue Empty\n";
+            else {
+                f = (f + 1) % n;
+                c--;
+                if (c == 0) {
+                    f = 0;
+                    r = -1;
+                    cout << "Queue Empty\n";
+                } else
+                    cout << "Front: " << a[f] << "\n";
             }
         }
     }
