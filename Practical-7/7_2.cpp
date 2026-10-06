@@ -1,36 +1,56 @@
 #include <iostream>
 using namespace std;
 
+struct Node {
+    int id;
+    Node* next;
+
+    Node(int value) {
+        id = value;
+        next = NULL;
+    }
+};
+
 int main() {
-    int n = 1000;
-    int q[n];
-    int f = 0, r = 0;
-    int op;
+    Node* f = NULL;
+    Node* r = NULL;
+    int q;
 
-    cin >> op;
+    cin >> q;
 
-    while (op--) {
-        string type;
-        cin >> type;
+    while (q--) {
+        string op;
+        cin >> op;
 
-        if (type == "arrive") {
-            int x;
-            cin >> x;
+        if (op == "add") {
+            int id;
+            cin >> id;
 
-            q[r++] = x;
-            cout << "Front: " << q[f] << endl;
-        }
-        else if (type == "attend") {
-            if (f == r) {
-                cout << "Queue Underflow" << endl;
+            Node* temp = new Node(id);
+
+            if (r == NULL) {
+                f = r = temp;
+            } else {
+                r->next = temp;
+                r = temp;
             }
-            else {
-                f++;
 
-                if (f == r)
-                    cout << "Queue is Empty" << endl;
-                else
-                    cout << "Front: " << q[f] << endl;
+            cout << "Current Node: " << f->id << endl;
+        }
+        else if (op == "print") {
+            if (f == NULL) {
+                cout << "No Nodes" << endl;
+            } else {
+                Node* temp = f;
+                f = f->next;
+                delete temp;
+
+                if (f == NULL) {
+                    r = NULL;
+                    cout << "No Nodes" << endl;
+                } else {
+                    cout << "Current Node: " << f->id << endl;
+                }
             }
         }
     }
