@@ -1,36 +1,57 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-int main() {
-    string stack[100];
+struct Node {
     string page;
-    int top = -1;
-    int q;
+    Node* next;
+};
 
-    cin >> page;
-    stack[++top] = page;
+Node* top = NULL;
 
-    cin >> q;
+void visit(string page) {
+    Node* newNode = new Node();
+    newNode->page = page;
+    newNode->next = top;
+    top = newNode;
+}
 
-    while (q--) {
-        string op;
-        cin >> op;
-
-        if (op == "push") {
-            cin >> page;
-            stack[++top] = page;
-            cout << "Current Page: " << stack[top] << endl;
-        }
-        else if (op == "pop") {
-            if (top == 0) {
-                cout << "No History" << endl;
-            }
-            else {
-                top--;
-                cout << "Current Page: " << stack[top] << endl;
-            }
-        }
+void back() {
+    if (top == NULL) {
+        cout << "No history left\n";
+        return;
     }
+
+    Node* temp = top;
+    top = top->next;
+    delete temp;
+}
+
+void display() {
+    if (top == NULL)
+        cout << "No page\n";
+    else
+        cout << "Current Page: " << top->page << "\n";
+}
+
+int main() {
+    visit("Google");
+    display();
+
+    visit("YouTube");
+    display();
+
+    visit("GitHub");
+    display();
+
+    back();
+    display();
+
+    back();
+    display();
+
+    back();
+    display();
 
     return 0;
 }
