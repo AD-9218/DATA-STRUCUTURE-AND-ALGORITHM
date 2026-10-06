@@ -10,10 +10,10 @@ struct Node {
 Node* top = NULL;
 
 void visit(string page) {
-    Node* newNode = new Node();
-    newNode->page = page;
-    newNode->next = top;
-    top = newNode;
+    Node* temp = new Node();
+    temp->page = page;
+    temp->next = top;
+    top = temp;
 }
 
 void back() {
