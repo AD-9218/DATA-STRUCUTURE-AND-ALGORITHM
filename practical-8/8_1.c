@@ -51,18 +51,6 @@ void lev(struct N *t) {
     }
 }
 
-struct N* ins(struct N *t, int x) {
-    if (t == NULL)
-        return nn(x);
-
-    if (x < t->d)
-        t->l = ins(t->l, x);
-    else if (x > t->d)
-        t->r = ins(t->r, x);
-
-    return t;
-}
-
 int main() {
     struct N *t = nn(1);
 
@@ -84,16 +72,6 @@ int main() {
 
     printf("\nLevelorder: ");
     lev(t);
-
-    struct N *b = NULL;
-    int a[] = {50, 30, 70, 20, 40, 60, 80};
-    int n = 7;
-
-    for (int i = 0; i < n; i++)
-        b = ins(b, a[i]);
-
-    printf("\nBST Inorder: ");
-    in(b);
 
     return 0;
 }
